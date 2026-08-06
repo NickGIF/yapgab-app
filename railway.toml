@@ -2,22 +2,22 @@
 # https://docs.railway.app/reference/config-as-code
 
 [build]
-builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
+  builder = "DOCKERFILE"
+  dockerfilePath = "Dockerfile"
 
 [deploy]
-healthcheckPath = "/api/license/version"
-healthcheckTimeout = 300
-restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 10
+  healthcheckPath = "/api/license/version"
+  healthcheckTimeout = 300
+  restartPolicyType = "ON_FAILURE"
+  restartPolicyMaxRetries = 10
 
 [variables]
-NODE_ENV        = "production"
-PORT            = "5000"
-# Automatically wired from the Railway PostgreSQL plugin
-DATABASE_URL    = "${{Postgres.DATABASE_URL}}"
-# Auto-generated on first deploy by Railway
-SESSION_SECRET       = "${{secret(64)}}"
-CONFIG_ENCRYPTION_KEY = "${{secret(64)}}"
-# Required — enter your YapGab license key when Railway prompts you
-# YAPGAB_LICENSE_KEY = "<your-license-key>"
+  NODE_ENV                = "production"
+  PORT                    = "5000"
+  # Automatically wired from the Railway PostgreSQL plugin — no manual entry needed
+  DATABASE_URL            = "${{Postgres.DATABASE_URL}}"
+  # Auto-generated once by Railway and stored — never needs to be changed
+  SESSION_SECRET          = "${{secret(64)}}"
+  CONFIG_ENCRYPTION_KEY   = "${{secret(64)}}"
+  # Required — paste your YapGab license key here when Railway prompts you
+  # YAPGAB_LICENSE_KEY    = "<your-license-key>"
