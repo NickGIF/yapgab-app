@@ -12,19 +12,20 @@ When you click **Deploy on Railway**, Railway will:
 
 - Pull the pre-built YapGab Docker image
 - Create a **PostgreSQL** database and wire `DATABASE_URL` automatically
-- Generate `SESSION_SECRET` and `CONFIG_ENCRYPTION_KEY` as secure random values
-
-You will **not** need to touch a terminal or edit any config files for these.
+- Auto-generate `CONFIG_ENCRYPTION_KEY` and `SESSION_SECRET` on first boot (stored securely in Postgres)
 
 ---
 
 ## What you enter manually
 
-Railway will prompt you for one variable during deploy:
+Railway will prompt you for these variables during deploy:
 
-| Variable | Where to get it |
+| Variable | What to enter |
 |---|---|
+| `PGPASSWORD` | Any password for the Postgres database (e.g. a random string — write it down) |
 | `YAPGAB_LICENSE_KEY` | Provided when you purchase a YapGab creator license at [yapgab.com](https://yapgab.com) |
+
+`DATABASE_URL` is wired automatically from the Postgres service — you don't need to enter it.
 
 ---
 
@@ -40,22 +41,30 @@ All of these are entered through the wizard UI — no SSH, no environment variab
 
 ---
 
+## Optional: promote auto-generated secrets to env vars
+
+On first boot YapGab auto-generates `CONFIG_ENCRYPTION_KEY` and `SESSION_SECRET` and stores
+them in Postgres. The app logs both values at startup. For additional security in-depth, copy
+those values from the Railway Logs tab and add them to your Variables tab, then redeploy:
+
+```
+CONFIG_ENCRYPTION_KEY = <value from logs>
+SESSION_SECRET        = <value from logs>
+```
+
+After this the secrets are stored in two places (env var + DB) — losing either one alone won't
+affect your deployment.
+
+---
+
 ## Setting your domain URL
 
-Railway gives your app a default URL like `https://myapp.up.railway.app`. If you want email links and callbacks to use that URL (or a custom domain), set the `APP_BASE_URL` variable:
-
-**To set it after your first deploy:**
+Railway gives your app a default URL like `https://myapp.up.railway.app`. If you want email
+links and callbacks to use that URL (or a custom domain), set the `APP_BASE_URL` variable:
 
 1. Open your Railway project → click the **yapgab** service → **Variables** tab
 2. Add `APP_BASE_URL` with your Railway URL, e.g. `https://myapp.up.railway.app`
-3. Railway redeploys automatically (~30 seconds) — no downtime
-
-**To use a custom domain:**
-
-1. Railway project → **Settings** → **Domains** → add your domain and update your DNS
-2. Once DNS is live, update `APP_BASE_URL` to your custom domain, e.g. `https://myapp.com`
-
-`APP_BASE_URL` is used for links inside transactional emails and payment callbacks. You can leave it unset initially and add it any time.
+3. Railway redeploys automatically (~30 seconds)
 
 ---
 
