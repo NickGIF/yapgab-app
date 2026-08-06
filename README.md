@@ -1,8 +1,8 @@
 # YapGab
 
-**AI companion platform** — deploy your own white-label instance in minutes.
+**AI companion platform** — deploy your own white-label instance in one click.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/NickGIF/yapgab-app&referralCode=LT3bRM)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/M16VAV?referralCode=LT3bRM)
 
 ---
 
