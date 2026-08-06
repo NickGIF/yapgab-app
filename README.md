@@ -40,6 +40,25 @@ All of these are entered through the wizard UI — no SSH, no environment variab
 
 ---
 
+## Setting your domain URL
+
+Railway gives your app a default URL like `https://myapp.up.railway.app`. If you want email links and callbacks to use that URL (or a custom domain), set the `APP_BASE_URL` variable:
+
+**To set it after your first deploy:**
+
+1. Open your Railway project → click the **yapgab** service → **Variables** tab
+2. Add `APP_BASE_URL` with your Railway URL, e.g. `https://myapp.up.railway.app`
+3. Railway redeploys automatically (~30 seconds) — no downtime
+
+**To use a custom domain:**
+
+1. Railway project → **Settings** → **Domains** → add your domain and update your DNS
+2. Once DNS is live, update `APP_BASE_URL` to your custom domain, e.g. `https://myapp.com`
+
+`APP_BASE_URL` is used for links inside transactional emails and payment callbacks. You can leave it unset initially and add it any time.
+
+---
+
 ## Referral
 
 Deployed via referral code **LT3bRM**.
